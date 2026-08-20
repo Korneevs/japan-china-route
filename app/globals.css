@@ -422,8 +422,9 @@ img {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(rgba(247,242,233,.88), rgba(247,242,233,.96)),
-    url("https://images.unsplash.com/photo-1727836674703-7d3d26af17c3?auto=format&fit=crop&w=1800&q=80") center top / cover fixed;
+    linear-gradient(rgba(247,242,233,.56), rgba(247,242,233,.82)),
+    var(--world-art) center top / 100% auto repeat-y;
+  background-attachment: scroll, fixed;
 }
 
 .japan-world::after {
@@ -437,20 +438,6 @@ img {
   mask-image: linear-gradient(to bottom, black, transparent 72%);
 }
 
-.maple-field span {
-  position: absolute;
-  z-index: 0;
-  color: rgba(170,19,28,.16);
-  font-size: clamp(70px, 12vw, 180px);
-  transform: rotate(var(--rotate, 15deg));
-}
-
-.maple-field span:nth-child(1) { top: 2%; left: -2%; --rotate: -18deg; }
-.maple-field span:nth-child(2) { top: 17%; right: -1%; --rotate: 28deg; }
-.maple-field span:nth-child(3) { top: 43%; left: 4%; --rotate: 42deg; }
-.maple-field span:nth-child(4) { top: 67%; right: 3%; --rotate: -35deg; }
-.maple-field span:nth-child(5) { bottom: 5%; left: 22%; --rotate: 12deg; }
-
 .china-world {
   color: var(--paper);
   background: #0e1b17;
@@ -462,32 +449,10 @@ img {
   inset: 0;
   z-index: -3;
   background:
-    linear-gradient(rgba(7,20,16,.74), rgba(10,25,20,.94)),
-    url("https://images.unsplash.com/photo-1517047098372-8224cef6dec4?auto=format&fit=crop&w=1800&q=80") center top / cover fixed;
+    linear-gradient(rgba(7,20,16,.28), rgba(10,25,20,.68)),
+    var(--world-art) center top / 100% auto repeat-y;
+  background-attachment: scroll, fixed;
 }
-
-.mountain-layers {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.mountain-layers i {
-  position: absolute;
-  left: -10%;
-  width: 120%;
-  height: 520px;
-  opacity: .26;
-  background: linear-gradient(135deg, transparent 35%, #07120f 36% 47%, transparent 48%), linear-gradient(225deg, transparent 38%, #173d34 39% 56%, transparent 57%);
-  background-size: 430px 360px, 520px 420px;
-  transform: skewY(-3deg);
-}
-
-.mountain-layers i:nth-child(1) { top: 18%; }
-.mountain-layers i:nth-child(2) { top: 47%; opacity: .18; transform: scaleX(-1) skewY(4deg); }
-.mountain-layers i:nth-child(3) { bottom: -5%; opacity: .14; }
 
 .country-hero {
   position: relative;
@@ -691,6 +656,64 @@ img {
 .why-card ul { margin: 18px 0 2px; padding-left: 19px; }
 .why-card li { margin: 8px 0; font-size: 12px; line-height: 1.5; opacity: .72; }
 
+.city-gallery {
+  grid-column: 1 / -1;
+  order: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+  gap: 16px;
+}
+
+.city-gallery figure {
+  position: relative;
+  min-height: clamp(280px, 36vw, 470px);
+  margin: 0;
+  overflow: hidden;
+  background: rgba(0,0,0,.12);
+}
+
+.city-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.9) contrast(1.04);
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1), filter 400ms ease;
+}
+
+.city-gallery figure:hover img {
+  transform: scale(1.025);
+  filter: saturate(1.06) contrast(1.04);
+}
+
+.city-gallery figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 50px 24px 22px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--paper);
+  background: linear-gradient(transparent, rgba(18,8,8,.84));
+}
+
+.city-story--china .city-gallery figcaption {
+  background: linear-gradient(transparent, rgba(3,18,13,.88));
+}
+
+.city-gallery figcaption span {
+  font-size: 8px;
+  letter-spacing: .18em;
+  opacity: .72;
+}
+
+.city-gallery figcaption strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 2.2vw, 31px);
+  font-weight: 400;
+  text-align: right;
+}
+
 .bonus {
   position: relative;
   z-index: 2;
@@ -840,6 +863,7 @@ footer a { color: var(--gold); text-decoration: underline; text-underline-offset
   .city-story { grid-template-columns: 1fr; }
   .city-story--reverse .city-photo-wrap,
   .city-story--reverse .city-copy { order: initial; }
+  .city-gallery { order: 3; }
   .city-photo-wrap { min-height: 540px; }
   .final-call { grid-template-columns: 120px 1fr; }
   .final-call > a { grid-column: 2; text-align: left; justify-self: start; }
@@ -874,6 +898,8 @@ footer a { color: var(--gold); text-decoration: underline; text-underline-offset
   .city-story { padding: 54px 0; gap: 44px; }
   .city-photo-wrap { min-height: 410px; }
   .city-photo__label { right: -8px; min-width: 160px; }
+  .city-gallery { grid-template-columns: 1fr; }
+  .city-gallery figure { min-height: 300px; }
   .city-copy > h3 { font-size: 52px; }
   .day-row { grid-template-columns: 60px 1fr; gap: 12px; }
   .bonus { width: calc(100% - 36px); margin: 60px auto 90px; padding: 42px 24px; grid-template-columns: 1fr; }

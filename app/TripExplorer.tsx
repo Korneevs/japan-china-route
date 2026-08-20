@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 type PlotlyApi = {
   newPlot: (
@@ -20,19 +20,16 @@ declare global {
   }
 }
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (path: string) => `${basePath}${path}`;
+
 const images = {
-  tokyo:
-    "https://images.unsplash.com/photo-1682319298536-33ac5b48d772?auto=format&fit=crop&w=1800&q=85",
-  kyoto:
-    "https://images.unsplash.com/photo-1727836674703-7d3d26af17c3?auto=format&fit=crop&w=1800&q=85",
-  osaka:
-    "https://images.unsplash.com/photo-1767519818590-4bf0a477fee7?auto=format&fit=crop&w=1800&q=85",
-  shanghai:
-    "https://images.unsplash.com/photo-1609153755058-a7cbbf264e9c?auto=format&fit=crop&w=1800&q=85",
-  zhangjiajie:
-    "https://images.unsplash.com/photo-1517047098372-8224cef6dec4?auto=format&fit=crop&w=1800&q=85",
-  chongqing:
-    "https://images.unsplash.com/photo-1581252167648-643051a9433e?auto=format&fit=crop&w=1800&q=85",
+  tokyo: asset("/images/tokyo-hero.jpg"),
+  kyoto: asset("/images/kyoto-hero.jpg"),
+  osaka: asset("/images/osaka-hero.jpg"),
+  shanghai: asset("/images/shanghai-hero.jpg"),
+  zhangjiajie: asset("/images/zhangjiajie-hero.jpg"),
+  chongqing: asset("/images/chongqing-hero.jpg"),
 };
 
 const japanCities = [
@@ -70,6 +67,10 @@ const japanCities = [
       "Асакуса и Skytree показывают старый и новый город в одном кадре",
       "Камакура добавляет океан и спокойный ритм без смены отеля",
     ],
+    gallery: [
+      { image: asset("/images/tokyo-asakusa.jpg"), alt: "Храм Сэнсо-дзи в Асакусе ночью", caption: "Асакуса после темноты" },
+      { image: asset("/images/tokyo-shibuya.jpg"), alt: "Неоновые улицы Сибуи", caption: "Сибуя без паузы" },
+    ],
   },
   {
     id: "kyoto",
@@ -100,6 +101,10 @@ const japanCities = [
       "Кодай-дзи дает бамбук прямо рядом с Гионом; Арасияма не нужна ради одной фотографии",
       "Маршрут по Хигасияме раскрывается прогулкой, а не транспортом",
     ],
+    gallery: [
+      { image: asset("/images/kyoto-kinkakuji.jpg"), alt: "Золотой павильон Кинкаку-дзи в Киото", caption: "Золотой павильон" },
+      { image: asset("/images/kyoto-gion.jpg"), alt: "Тихая улица района Гион вечером", caption: "Гион вечером" },
+    ],
   },
   {
     id: "osaka",
@@ -129,6 +134,10 @@ const japanCities = [
       "Kaiyukan — не пауза от города, а отдельный вау-день",
       "Нара естественно ложится в маршрут без нового отеля",
       "Дотонбори — финальный выброс неона, такояки и энергии",
+    ],
+    gallery: [
+      { image: asset("/images/osaka-nara.jpg"), alt: "Олень в парке Нары", caption: "Утро в Наре" },
+      { image: asset("/images/osaka-castle.jpg"), alt: "Замок Осаки ночью", caption: "Замок после заката" },
     ],
   },
 ];
@@ -168,6 +177,10 @@ const chinaCities = [
       "Цибао дает каналы без длинного выезда в Чжуцзяцзяо",
       "Четвертый день нужен, чтобы Шанхай не превратился в чек-лист; за три дня его можно ужать",
     ],
+    gallery: [
+      { image: asset("/images/shanghai-yuyuan.jpg"), alt: "Китайские павильоны сада Юй в Шанхае", caption: "Сад Юй" },
+      { image: asset("/images/shanghai-bund.jpg"), alt: "Огни небоскребов Шанхая с набережной Бунд", caption: "Бунд ночью" },
+    ],
   },
   {
     id: "zhangjiajie",
@@ -197,6 +210,10 @@ const chinaCities = [
       "Более 3 000 кварцитовых столбов создают ландшафт, которого нет больше нигде в маршруте",
       "Тяньмэнь и парк — разные зоны: пытаться объединить их в день не стоит",
       "Туман здесь не всегда помеха: он делает горы визуально “плавающими”",
+    ],
+    gallery: [
+      { image: asset("/images/zhangjiajie-tianmen.jpg"), alt: "Гора Тяньмэнь над облаками", caption: "Тяньмэнь" },
+      { image: asset("/images/zhangjiajie-cableway.jpg"), alt: "Канатная дорога в горах Тяньмэнь", caption: "Дорога над облаками" },
     ],
   },
   {
@@ -228,6 +245,10 @@ const chinaCities = [
       "Лицзыба и Куйсинлоу превращают городскую инфраструктуру в аттракцион",
       "Улун добавляет эпическую природу, но требует очень раннего старта",
     ],
+    gallery: [
+      { image: asset("/images/chongqing-liziba.jpg"), alt: "Поезд монорельса входит в жилой дом на станции Лицзыба", caption: "Лицзыба" },
+      { image: asset("/images/chongqing-hall.jpg"), alt: "Ночной вид на Большой зал народных собраний Чунцина", caption: "Ночной Чунцин" },
+    ],
   },
 ];
 
@@ -255,14 +276,8 @@ function PlotlyComparison() {
           type: "bar",
           orientation: "h",
           name: "Япония",
-          y: [
-            "Простота логистики",
-            "Вау-природа",
-            "Ночной город",
-            "Культурный контраст",
-            "Комфорт без языка",
-          ],
-          x: [9, 7, 8, 8, 7],
+          y: ["Атмосфера", "Вау-природа", "Ночной город", "Культурный контраст", "Комфорт без языка"],
+          x: [10, 7, 8, 9, 7],
           marker: { color: "#d9463e", line: { color: "#f4b0a7", width: 1 } },
           hovertemplate: "Япония: %{x}/10<extra></extra>",
         },
@@ -270,14 +285,8 @@ function PlotlyComparison() {
           type: "bar",
           orientation: "h",
           name: "Китай",
-          y: [
-            "Простота логистики",
-            "Вау-природа",
-            "Ночной город",
-            "Культурный контраст",
-            "Комфорт без языка",
-          ],
-          x: [6, 10, 10, 10, 4],
+          y: ["Атмосфера", "Вау-природа", "Ночной город", "Культурный контраст", "Комфорт без языка"],
+          x: [8, 10, 10, 9, 4],
           marker: { color: "#d8aa62", line: { color: "#f7d596", width: 1 } },
           hovertemplate: "Китай: %{x}/10<extra></extra>",
         },
@@ -357,20 +366,23 @@ function PlotlyComparison() {
 
   useEffect(() => {
     if (!ready) return;
+    const profileElement = profileRef.current;
+    const mapElement = mapRef.current;
+    if (!profileElement || !mapElement) return;
     drawCharts();
 
     const handleResize = () => {
-      if (window.Plotly && profileRef.current && mapRef.current) {
-        window.Plotly.Plots.resize(profileRef.current);
-        window.Plotly.Plots.resize(mapRef.current);
+      if (window.Plotly) {
+        window.Plotly.Plots.resize(profileElement);
+        window.Plotly.Plots.resize(mapElement);
       }
     };
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (window.Plotly && profileRef.current && mapRef.current) {
-        window.Plotly.purge(profileRef.current);
-        window.Plotly.purge(mapRef.current);
+      if (window.Plotly) {
+        window.Plotly.purge(profileElement);
+        window.Plotly.purge(mapElement);
       }
     };
   }, [drawCharts, ready]);
@@ -408,7 +420,7 @@ function CityStory({ city, index, country }: { city: (typeof japanCities)[number
   return (
     <article className={`city-story city-story--${country} ${index % 2 ? "city-story--reverse" : ""}`} id={city.id}>
       <div className="city-photo-wrap">
-        <img className="city-photo" src={city.image} alt={city.alt} loading="lazy" />
+        <img className="city-photo" src={city.image} alt={city.alt} loading="lazy" decoding="async" />
         <div className="city-photo__label">
           <span>0{index + 1}</span>
           <strong>{city.name}</strong>
@@ -437,6 +449,17 @@ function CityStory({ city, index, country }: { city: (typeof japanCities)[number
             ))}
           </ul>
         </details>
+      </div>
+      <div className="city-gallery" aria-label={`Атмосфера: ${city.name}`}>
+        {city.gallery.map((photo) => (
+          <figure key={photo.image}>
+            <img src={photo.image} alt={photo.alt} loading="lazy" decoding="async" />
+            <figcaption>
+              <span>ATMOSPHERE</span>
+              <strong>{photo.caption}</strong>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </article>
   );
@@ -495,18 +518,18 @@ export default function TripExplorer() {
         <div className="section-heading section-heading--light">
           <p>БЫСТРЫЙ ВЫБОР / 00</p>
           <h2>Сначала — характер.<br />Потом — расписание.</h2>
-          <p className="section-heading__lead">Оба маршрута дают сильную первую поездку в Восточную Азию. Япония выигрывает в цельности и логистике. Китай — в масштабе, контрасте и эффекте “как это вообще построили?”.</p>
+          <p className="section-heading__lead">Япония не пытается ошеломить масштабом. Она цепляет тихо: светом в переулке, запахом татами, ночным конбини и тем самым чувством, что сюда хочется вернуться. Китай действует иначе — бьет контрастом, высотой, шумом и пейзажами, которые не помещаются в привычную картинку.</p>
         </div>
 
         <div className="quick-choice">
           <article className="quick-card quick-card--japan">
             <span className="quick-card__glyph">和</span>
             <p>ВЫБИРАЙ ЯПОНИЮ, ЕСЛИ</p>
-            <h3>Хочется эстетики без организационной борьбы</h3>
+            <h3>Хочется поездки, которая потом еще долго не отпускает</h3>
             <ul>
-              <li>Любишь ходить пешком и считывать детали</li>
-              <li>Хочешь точный транспорт и предсказуемый сервис</li>
-              <li>Мечтаешь о храмах, неоне и еде в одном ритме</li>
+              <li>Тянет к тихим храмам, вечернему неону и маленьким ритуалам</li>
+              <li>Нравится городская красота, которую хочется разглядывать</li>
+              <li>Хочешь не столько вау-эффект, сколько чувство «я сюда вернусь»</li>
             </ul>
             <a href="#japan">Погрузиться в Японию →</a>
           </article>
@@ -526,10 +549,11 @@ export default function TripExplorer() {
         <PlotlyComparison />
       </section>
 
-      <section className="country-world japan-world" id="japan">
-        <div className="maple-field" aria-hidden="true">
-          <span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span>
-        </div>
+      <section
+        className="country-world japan-world"
+        id="japan"
+        style={{ "--world-art": `url("${asset("/images/japan-maple-background-v2.jpg")}")` } as CSSProperties}
+      >
         <div className="country-hero country-hero--japan">
           <div className="country-hero__stamp">十日</div>
           <div>
@@ -562,20 +586,23 @@ export default function TripExplorer() {
             <span>ZERO</span>
           </div>
           <div className="bonus-copy">
-            <p>BONUS STAGE / コンビニ</p>
-            <h3>03:14. Конбини. Холодный −196.</h3>
-            <p>В Японии многие круглосуточные магазины превращают ночной поход за водой в отдельный жанр путешествия. Полка с банками — как каталог вкусов из параллельной реальности.</p>
+            <p>ПОСЛЕ ПРОГУЛКИ / コンビニ</p>
+            <h3>Трое друзей, полка банок и плохое чувство меры.</h3>
+            <p>План простой: после долгого дня зайти в круглосуточный конбини, взять по холодному −196 и еще минут двадцать выбирать вкус. В Японии для этого не нужно искать бар или успевать до закрытия: нормальный вечер собирается в ближайшем магазине.</p>
             <div className="bonus-dialogue">
-              <span>— Мы просто за водой.</span>
-              <strong>— Конечно. Поэтому у нас три вида −196.</strong>
+              <span>— Берем по одной и домой?</span>
+              <strong>— Да. А вторую — чисто попробовать другой вкус.</strong>
             </div>
-            <small>Алкоголь — только 20+. В Синдзюку Гёэн с ним нельзя.</small>
+            <small>−196 Zero бывает крепким: смотрите процент на банке. Алкоголь в Японии — с 20 лет.</small>
           </div>
         </section>
       </section>
 
-      <section className="country-world china-world" id="china">
-        <div className="mountain-layers" aria-hidden="true"><i /><i /><i /></div>
+      <section
+        className="country-world china-world"
+        id="china"
+        style={{ "--world-art": `url("${asset("/images/china-mountain-background-v2.jpg")}")` } as CSSProperties}
+      >
         <div className="country-hero country-hero--china">
           <div className="country-hero__stamp">十天</div>
           <div>
@@ -608,14 +635,14 @@ export default function TripExplorer() {
             <span>LAGER</span>
           </div>
           <div className="bonus-copy">
-            <p>BONUS STAGE / 冰镇啤酒</p>
-            <h3>После хот-пота приходит ледяной спасатель.</h3>
-            <p>Китайский лагер не пытается быть крафтовым откровением. Его миссия благороднее: потушить сычуаньский огонь и вернуть способность разговаривать после слова “微辣”.</p>
+            <p>ПОСЛЕ ХОТ-ПОТА / 冰镇啤酒</p>
+            <h3>Просто холодный лагер. Сейчас это именно то, что нужно.</h3>
+            <p>После острого хот-пота втроем не хочется обсуждать хмель, плотность и послевкусие. Хочется открыть три холодные банки, выдохнуть и решить, куда еще идти, хотя ноги уже против.</p>
             <div className="bonus-dialogue">
-              <span>— “Чуть-чуть остро” же?</span>
-              <strong>— Лагер, пожалуйста. Большой.</strong>
+              <span>— Мы же просили не очень острое.</span>
+              <strong>— Мы попросили. Они сделали по-китайски.</strong>
             </div>
-            <small>Полезная фраза: 冰镇啤酒 — “ледяное пиво”.</small>
+            <small>冰镇啤酒 — «охлажденное пиво». Если принесут теплое, пригодится.</small>
           </div>
         </section>
       </section>
@@ -673,7 +700,7 @@ export default function TripExplorer() {
             <a href="https://english.shanghai.gov.cn/en-TravelinShanghai/index.html" target="_blank" rel="noreferrer">Shanghai Government</a>,{" "}
             <a href="https://whc.unesco.org/en/list/640/" target="_blank" rel="noreferrer">UNESCO Wulingyuan</a>,{" "}
             <a href="https://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html" target="_blank" rel="noreferrer">China payment guide</a>.
-            Фотографии: Unsplash — Tokyo, Kyoto, Osaka, Shanghai, Zhangjiajie, Chongqing.
+            Фоны с кленами и горами сгенерированы специально для проекта. Фотографии: Wikimedia Commons — Andre Benz, Guilhem Vellut, Steve Allison, freddie marriage, David Monniaux, lumoplank, Redd Angelo, Carl Flor, Nkns, DvTor8303, Jean-Pierre Dalbéra, Hermann Luyken, xiquinhosilva, GeoffLeng, David290 и Harveychl (CC0, CC BY, CC BY-SA и public domain согласно карточкам файлов).
           </p>
         </details>
         <small>Часы работы, билеты и транспорт меняются. Перепроверьте их перед выездом.</small>

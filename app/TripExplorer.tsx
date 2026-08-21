@@ -27,7 +27,7 @@ const images = {
   tokyo: asset("/images/tokyo-hero.jpg"),
   kyoto: asset("/images/kyoto-hero.jpg"),
   osaka: asset("/images/osaka-hero.jpg"),
-  shanghai: asset("/images/shanghai-hero.jpg"),
+  shanghai: asset("/images/shanghai-pudong-hero.jpg"),
   zhangjiajie: asset("/images/zhangjiajie-hero.jpg"),
   chongqing: asset("/images/chongqing-hero.jpg"),
 };
@@ -68,8 +68,9 @@ const japanCities = [
       "Камакура добавляет океан и спокойный ритм без смены отеля",
     ],
     gallery: [
+      { image: asset("/images/tokyo-nikko-maples.jpg"), alt: "Красные клены в саду Сёё-эн в Никко", caption: "Клены Никко" },
+      { image: asset("/images/tokyo-kamakura-fuji.jpg"), alt: "Гора Фудзи над океаном и островом Эносима со стороны Камакуры", caption: "Фудзи из Камакуры" },
       { image: asset("/images/tokyo-asakusa.jpg"), alt: "Храм Сэнсо-дзи в Асакусе ночью", caption: "Асакуса после темноты" },
-      { image: asset("/images/tokyo-shibuya.jpg"), alt: "Неоновые улицы Сибуи", caption: "Сибуя без паузы" },
     ],
   },
   {
@@ -103,7 +104,8 @@ const japanCities = [
     ],
     gallery: [
       { image: asset("/images/kyoto-kinkakuji.jpg"), alt: "Золотой павильон Кинкаку-дзи в Киото", caption: "Золотой павильон" },
-      { image: asset("/images/kyoto-gion.jpg"), alt: "Тихая улица района Гион вечером", caption: "Гион вечером" },
+      { image: asset("/images/kyoto-yasaka-pagoda.jpg"), alt: "Подсвеченная пагода Ясака в районе Хигасияма", caption: "Пагода Ясака" },
+      { image: asset("/images/kyoto-bamboo-forest.jpg"), alt: "Пустая тропа среди высокого бамбука в Киото", caption: "Бамбуковая тишина" },
     ],
   },
   {
@@ -138,6 +140,7 @@ const japanCities = [
     gallery: [
       { image: asset("/images/osaka-nara.jpg"), alt: "Олень в парке Нары", caption: "Утро в Наре" },
       { image: asset("/images/osaka-castle.jpg"), alt: "Замок Осаки ночью", caption: "Замок после заката" },
+      { image: asset("/images/osaka-aquarium-interior.jpg"), alt: "Китовая акула в огромном аквариуме Kaiyukan в Осаке", caption: "Внутри Kaiyukan" },
     ],
   },
 ];
@@ -178,8 +181,9 @@ const chinaCities = [
       "Четвертый день нужен, чтобы Шанхай не превратился в чек-лист; за три дня его можно ужать",
     ],
     gallery: [
-      { image: asset("/images/shanghai-yuyuan.jpg"), alt: "Китайские павильоны сада Юй в Шанхае", caption: "Сад Юй" },
-      { image: asset("/images/shanghai-bund.jpg"), alt: "Огни небоскребов Шанхая с набережной Бунд", caption: "Бунд ночью" },
+      { image: asset("/images/shanghai-old-quarter-night.jpg"), alt: "Старые китайские павильоны квартала Юйюань вечером", caption: "Старый квартал вечером" },
+      { image: asset("/images/shanghai-nanjing-road.jpg"), alt: "Неон и толпа на пешеходной Нанкинской улице", caption: "Нанкинская улица" },
+      { image: asset("/images/shanghai-qibao.jpg"), alt: "Канал, каменный мост и старые дома в Цибао", caption: "Каналы Цибао" },
     ],
   },
   {
@@ -212,8 +216,9 @@ const chinaCities = [
       "Туман здесь не всегда помеха: он делает горы визуально “плавающими”",
     ],
     gallery: [
-      { image: asset("/images/zhangjiajie-tianmen.jpg"), alt: "Гора Тяньмэнь над облаками", caption: "Тяньмэнь" },
-      { image: asset("/images/zhangjiajie-cableway.jpg"), alt: "Канатная дорога в горах Тяньмэнь", caption: "Дорога над облаками" },
+      { image: asset("/images/zhangjiajie-heaven-stairs.jpg"), alt: "Подсвеченная лестница к Небесным вратам Тяньмэнь без людей", caption: "Лестница в небо" },
+      { image: asset("/images/zhangjiajie-mist.jpg"), alt: "Каменные столбы национального парка Чжанцзяцзе в тумане", caption: "Горы в тумане" },
+      { image: asset("/images/zhangjiajie-glass-bridge.jpg"), alt: "Стеклянный мост над Большим каньоном Чжанцзяцзе", caption: "Мост над каньоном" },
     ],
   },
   {
@@ -247,7 +252,8 @@ const chinaCities = [
     ],
     gallery: [
       { image: asset("/images/chongqing-liziba.jpg"), alt: "Поезд монорельса входит в жилой дом на станции Лицзыба", caption: "Лицзыба" },
-      { image: asset("/images/chongqing-hall.jpg"), alt: "Ночной вид на Большой зал народных собраний Чунцина", caption: "Ночной Чунцин" },
+      { image: asset("/images/chongqing-neon-skyline.jpg"), alt: "Неоновые небоскребы Чунцина ночью", caption: "Неоновый Чунцин" },
+      { image: asset("/images/chongqing-luohan-temple.jpg"), alt: "Старинные резные павильоны храма Лохань среди небоскребов", caption: "Храм Лохань" },
     ],
   },
 ];
@@ -700,7 +706,7 @@ export default function TripExplorer() {
             <a href="https://english.shanghai.gov.cn/en-TravelinShanghai/index.html" target="_blank" rel="noreferrer">Shanghai Government</a>,{" "}
             <a href="https://whc.unesco.org/en/list/640/" target="_blank" rel="noreferrer">UNESCO Wulingyuan</a>,{" "}
             <a href="https://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html" target="_blank" rel="noreferrer">China payment guide</a>.
-            Фоны с кленами и горами сгенерированы специально для проекта. Фотографии: Wikimedia Commons — Andre Benz, Guilhem Vellut, Steve Allison, freddie marriage, David Monniaux, lumoplank, Redd Angelo, Carl Flor, Nkns, DvTor8303, Jean-Pierre Dalbéra, Hermann Luyken, xiquinhosilva, GeoffLeng, David290 и Harveychl (CC0, CC BY, CC BY-SA и public domain согласно карточкам файлов).
+            Фоны с кленами и горами, а также кадр подсвеченной лестницы Тяньмэнь сгенерированы специально для проекта. Фотографии: Wikimedia Commons — Andre Benz, Guilhem Vellut, Steve Allison, freddie marriage, David Monniaux, lumoplank, Redd Angelo, Carl Flor, Nkns, Jean-Pierre Dalbéra, Hermann Luyken, xiquinhosilva, GeoffLeng, David290, Harveychl, Tarourashima, ttshr1970, Shinrya, King of Hearts, Filipe Fortes, Codas и HMGiovanniV (CC0, CC BY, CC BY-SA и public domain согласно карточкам файлов).
           </p>
         </details>
         <small>Часы работы, билеты и транспорт меняются. Перепроверьте их перед выездом.</small>

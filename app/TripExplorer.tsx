@@ -181,8 +181,8 @@ const chinaCities = [
       "Четвертый день нужен, чтобы Шанхай не превратился в чек-лист; за три дня его можно ужать",
     ],
     gallery: [
-      { image: asset("/images/shanghai-old-quarter-night.jpg"), alt: "Старые китайские павильоны квартала Юйюань вечером", caption: "Старый квартал вечером" },
-      { image: asset("/images/shanghai-nanjing-road.jpg"), alt: "Неон и толпа на пешеходной Нанкинской улице", caption: "Нанкинская улица" },
+      { image: asset("/images/shanghai-old-quarter.jpg"), alt: "Старинные китайские крыши квартала Юйюань", caption: "Старый квартал" },
+      { image: asset("/images/shanghai-old-new.jpg"), alt: "Традиционные китайские крыши на фоне небоскребов Пудуна", caption: "Старое и новое" },
       { image: asset("/images/shanghai-qibao.jpg"), alt: "Канал, каменный мост и старые дома в Цибао", caption: "Каналы Цибао" },
     ],
   },
@@ -252,7 +252,7 @@ const chinaCities = [
     ],
     gallery: [
       { image: asset("/images/chongqing-liziba.jpg"), alt: "Поезд монорельса входит в жилой дом на станции Лицзыба", caption: "Лицзыба" },
-      { image: asset("/images/chongqing-neon-skyline.jpg"), alt: "Неоновые небоскребы Чунцина ночью", caption: "Неоновый Чунцин" },
+      { image: asset("/images/chongqing-neon-street.jpg"), alt: "Неоновая улица Чунцина после дождя", caption: "Неоновый Чунцин" },
       { image: asset("/images/chongqing-luohan-temple.jpg"), alt: "Старинные резные павильоны храма Лохань среди небоскребов", caption: "Храм Лохань" },
     ],
   },
@@ -706,7 +706,7 @@ export default function TripExplorer() {
             <a href="https://english.shanghai.gov.cn/en-TravelinShanghai/index.html" target="_blank" rel="noreferrer">Shanghai Government</a>,{" "}
             <a href="https://whc.unesco.org/en/list/640/" target="_blank" rel="noreferrer">UNESCO Wulingyuan</a>,{" "}
             <a href="https://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html" target="_blank" rel="noreferrer">China payment guide</a>.
-            Фоны с кленами и горами, а также кадр подсвеченной лестницы Тяньмэнь сгенерированы специально для проекта. Фотографии: Wikimedia Commons — Andre Benz, Guilhem Vellut, Steve Allison, freddie marriage, David Monniaux, lumoplank, Redd Angelo, Carl Flor, Nkns, Jean-Pierre Dalbéra, Hermann Luyken, xiquinhosilva, GeoffLeng, David290, Harveychl, Tarourashima, ttshr1970, Shinrya, King of Hearts, Filipe Fortes, Codas и HMGiovanniV (CC0, CC BY, CC BY-SA и public domain согласно карточкам файлов).
+            Фоны с кленами и горами, а также кадр подсвеченной лестницы Тяньмэнь сгенерированы специально для проекта. Часть фотографий взята из пользовательской подборки; остальные: Wikimedia Commons — Andre Benz, Guilhem Vellut, Steve Allison, freddie marriage, David Monniaux, lumoplank, Redd Angelo, Carl Flor, Nkns, Jean-Pierre Dalbéra, Hermann Luyken, xiquinhosilva, GeoffLeng, David290, Harveychl, Tarourashima, ttshr1970, Shinrya, King of Hearts, Filipe Fortes, Codas и HMGiovanniV (CC0, CC BY, CC BY-SA и public domain согласно карточкам файлов).
           </p>
         </details>
         <small>Часы работы, билеты и транспорт меняются. Перепроверьте их перед выездом.</small>
